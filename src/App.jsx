@@ -4,13 +4,23 @@ import Transactions from "./pages/Transactions";
 import TopExpenses from "./pages/TopExpenses";
 
 const App = () => {
-  const [balance, setBalance] = useState(5000);
-  const [expenses, setExpenses] = useState(0);
-  const [transactions, setTransactions] = useState([]);
-  const [categoryExpenses, setCategoryExpenses] = useState({
-    food: 0,
-    travel: 0,
-    entertainment: 0,
+  const [balance, setBalance] = useState(() => {
+    return localStorage.getItem("balance") ? JSON.parse(localStorage.getItem("balance")) : 5000;
+  });
+  const [expenses, setExpenses] = useState(() => {
+    return localStorage.getItem("totalExpenses") ? JSON.parse(localStorage.getItem("totalExpenses")) : 0;
+  });
+  const [transactions, setTransactions] = useState(() => {
+    return localStorage.getItem("expenses")
+      ? JSON.parse(localStorage.getItem("expenses"))
+      : [];
+  });
+  const [categoryExpenses, setCategoryExpenses] = useState(() => {
+    return localStorage.getItem("categoryExpenses") ? JSON.parse(localStorage.getItem("categoryExpenses")) : {
+      food: 0,
+      travel: 0,
+      entertainment: 0,
+    };
   });
 
   useEffect(() => {
@@ -26,6 +36,22 @@ const App = () => {
 
     setCategoryExpenses(newCategoryExpenses);
   }, [transactions]);
+
+  useEffect(() => {
+    localStorage.setItem("balance", balance);
+  }, [balance]);
+
+  useEffect(() => {
+    localStorage.setItem("totalExpenses", expenses);
+  }, [expenses]);
+
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(transactions));
+  }, [transactions]);
+
+  useEffect(() => {
+    localStorage.setItem("categoryExpenses", JSON.stringify(categoryExpenses));
+  }, [categoryExpenses]);
 
   return (
     <div className="mx-4 flex flex-col">
