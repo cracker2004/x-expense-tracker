@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+.btn{
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.shadow{
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+body{
+    background-color: #3b3b3b;
+    color: white;
+    /* color: #000000 */
+}
